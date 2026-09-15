@@ -47,7 +47,7 @@ export default {
         sans: ['Inter', 'system-ui', '-apple-system', 'sans-serif'],
         mono: ['JetBrains Mono', 'Fira Code', 'SFMono-Regular', 'Menlo', 'monospace'],
         display: ['Space Grotesk', 'Inter', 'sans-serif'],
-        logo: ['Syne', 'Space Grotesk', 'system-ui', 'sans-serif'],
+        logo: ['Space Grotesk', 'Syne', 'system-ui', 'sans-serif'],
       },
       boxShadow: {
         'glow-red': '0 0 25px -5px rgba(255, 42, 95, 0.4)',

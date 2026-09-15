@@ -1,0 +1,51 @@
+---
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import '../styles/global.css';
+
+interface Props {
+  title?: string;
+  description?: string;
+  currentSection?: string;
+}
+
+const {
+  title = '808s & Heartbreak // Futuristic Blog',
+  description = 'A minimalist markdown blog engineered with an 808s & Heartbreak color palette and modern futuristic styling.',
+  currentSection,
+} = Astro.props;
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content={description} />
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%23e11d48'><path d='M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z'/></svg>" />
+    <title>{title}</title>
+
+    <!-- Pre-render theme switcher script to prevent Flash Of Unstyled Content (FOUC) -->
+    <script is:inline>
+      (function () {
+        const storedTheme = typeof localStorage !== 'undefined' && localStorage.getItem('theme');
+        const systemPrefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+        
+        if (storedTheme === 'dark' || (!storedTheme && systemPrefersDark)) {
+          document.documentElement.classList.add('dark');
+        } else {
+          document.documentElement.classList.remove('dark');
+        }
+      })();
+    </script>
+  </head>
+  <body class="bg-brand-light-bg dark:bg-brand-dark-bg text-brand-grey-900 dark:text-brand-grey-100 min-h-screen flex flex-col hud-grid antialiased transition-colors duration-200 selection:bg-brand-red selection:text-white">
+    <Header currentSection={currentSection} />
+
+    <main class="flex-1 max-w-6xl w-full mx-auto px-4 sm:px-6 py-8">
+      <slot />
+    </main>
+
+    <Footer />
+  </body>
+</html>

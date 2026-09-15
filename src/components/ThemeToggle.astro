@@ -1,0 +1,47 @@
+---
+// ThemeToggle.astro: Switches between Light (Grey/White/Red) and Dark (Grey/Black/Red)
+---
+
+<button
+  id="theme-toggle"
+  type="button"
+  aria-label="Toggle visual mode"
+  class="relative inline-flex items-center gap-2 px-3 py-1.5 rounded-full border border-brand-light-border dark:border-brand-dark-border bg-brand-light-surface dark:bg-brand-dark-surface hover:border-brand-red dark:hover:border-brand-red-neon transition-all duration-300 text-xs font-mono tracking-wider text-brand-grey-700 dark:text-brand-grey-300 shadow-sm focus:outline-none focus:ring-1 focus:ring-brand-red cursor-pointer group"
+>
+  <!-- Light Mode Icon (Sun) -->
+  <span class="dark:hidden flex items-center gap-1.5 text-brand-grey-800">
+    <svg class="w-3.5 h-3.5 text-brand-red" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <circle cx="12" cy="12" r="5"></circle>
+      <line x1="12" y1="1" x2="12" y2="3"></line>
+      <line x1="12" y1="21" x2="12" y2="23"></line>
+      <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+      <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+      <line x1="1" y1="12" x2="3" y2="12"></line>
+      <line x1="21" y1="12" x2="23" y2="12"></line>
+      <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+      <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+    </svg>
+    <span class="hidden sm:inline font-medium">LIGHT</span>
+  </span>
+
+  <!-- Dark Mode Icon (Moon with red glow) -->
+  <span class="hidden dark:flex items-center gap-1.5 text-brand-grey-200">
+    <svg class="w-3.5 h-3.5 text-brand-red-neon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+    </svg>
+    <span class="hidden sm:inline font-medium">DARK</span>
+  </span>
+
+  <!-- Futuristic status pip -->
+  <span class="w-1.5 h-1.5 rounded-full bg-brand-red dark:bg-brand-red-neon group-hover:scale-125 transition-transform duration-200"></span>
+</button>
+
+<script is:inline>
+  const toggleBtn = document.getElementById('theme-toggle');
+  if (toggleBtn) {
+    toggleBtn.addEventListener('click', () => {
+      const isDark = document.documentElement.classList.toggle('dark');
+      localStorage.setItem('theme', isDark ? 'dark' : 'light');
+    });
+  }
+</script>

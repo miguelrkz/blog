@@ -1,0 +1,48 @@
+---
+import type { GetStaticPaths } from 'astro';
+import { getCollection } from 'astro:content';
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import PostList from '../../../components/PostList.astro';
+import { slugify } from '../../../utils/slug';
+
+export const getStaticPaths = (async ({ paginate }) => {
+  const posts = await getCollection('posts');
+  posts.sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
+
+  // Extract unique sections
+  const sections = Array.from(new Set(posts.map((p) => p.data.section?.trim() || 'General')));
+
+  return sections.flatMap((sectionName) => {
+    const sectionPosts = posts.filter(
+      (p) => (p.data.section?.trim() || 'General') === sectionName
+    );
+    const sectionSlug = slugify(sectionName);
+
+    return paginate(sectionPosts, {
+      params: { section: sectionSlug },
+      props: { sectionName },
+      pageSize: 6,
+    });
+  });
+}) satisfies GetStaticPaths;
+
+const { page, sectionName } = Astro.props;
+const { section } = Astro.params;
+---
+
+<BaseLayout
+  title={`${sectionName} // 808s.LOGS`}
+  description={`Browse articles and transmissions filed under ${sectionName}.`}
+  currentSection={sectionName}
+>
+  <PostList
+    posts={page.data}
+    title={`SECTION // ${sectionName}`}
+    subtitle={`Transmissions categorized under "${sectionName}". Page ${page.currentPage} of ${page.lastPage}.`}
+    currentPage={page.currentPage}
+    totalPages={page.lastPage}
+    prevUrl={page.url.prev}
+    nextUrl={page.url.next}
+    baseUrl={`/section/${section}`}
+  />
+</BaseLayout>

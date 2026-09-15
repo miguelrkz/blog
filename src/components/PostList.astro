@@ -1,0 +1,70 @@
+---
+import type { CollectionEntry } from 'astro:content';
+import PostCard from './PostCard.astro';
+import Pagination from './Pagination.astro';
+
+interface Props {
+  posts: CollectionEntry<'posts'>[];
+  title?: string;
+  subtitle?: string;
+  currentPage: number;
+  totalPages: number;
+  prevUrl?: string;
+  nextUrl?: string;
+  baseUrl: string;
+}
+
+const {
+  posts,
+  title = "TRANSMISSIONS // ALL",
+  subtitle = "Chronological archive of thoughts, synthetic soundscapes, and digital designs.",
+  currentPage,
+  totalPages,
+  prevUrl,
+  nextUrl,
+  baseUrl,
+} = Astro.props;
+---
+
+<div class="space-y-8">
+  <!-- Section Title & Telemetry Header -->
+  <div class="border-b border-brand-light-border dark:border-brand-dark-border pb-6">
+    <div class="flex items-center gap-2 text-xs font-mono text-brand-red dark:text-brand-red-neon tracking-widest uppercase mb-2">
+      <span class="inline-block w-2 h-2 rounded-full bg-brand-red dark:bg-brand-red-neon"></span>
+      <span>FEED STATUS: ACTIVE</span>
+      <span class="text-brand-grey-400 dark:text-brand-grey-600">//</span>
+      <span class="text-brand-grey-600 dark:text-brand-grey-400">{posts.length} LOADED IN THIS VIEW</span>
+    </div>
+
+    <h1 class="font-display font-bold text-3xl sm:text-4xl text-brand-grey-900 dark:text-white tracking-tight uppercase">
+      {title}
+    </h1>
+
+    <p class="text-sm sm:text-base text-brand-grey-600 dark:text-brand-grey-300 mt-2 max-w-2xl font-normal leading-relaxed">
+      {subtitle}
+    </p>
+  </div>
+
+  <!-- Cards Grid View -->
+  {posts.length > 0 ? (
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
+      {posts.map((post) => (
+        <PostCard post={post} />
+      ))}
+    </div>
+  ) : (
+    <div class="py-16 text-center rounded-xl border border-dashed border-brand-light-border dark:border-brand-dark-border p-8">
+      <div class="text-brand-red dark:text-brand-red-neon font-mono text-sm mb-2">[NULL TRANSMISSION]</div>
+      <p class="text-brand-grey-500 dark:text-brand-grey-400 text-sm">No entries found in this section yet.</p>
+    </div>
+  )}
+
+  <!-- Pagination -->
+  <Pagination
+    currentPage={currentPage}
+    totalPages={totalPages}
+    prevUrl={prevUrl}
+    nextUrl={nextUrl}
+    baseUrl={baseUrl}
+  />
+</div>

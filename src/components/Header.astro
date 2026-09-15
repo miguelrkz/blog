@@ -1,0 +1,47 @@
+---
+import SectionDropdown from './SectionDropdown.astro';
+import ThemeToggle from './ThemeToggle.astro';
+import { url } from '../utils/url';
+
+interface Props {
+  currentSection?: string;
+}
+
+const { currentSection } = Astro.props;
+---
+
+<header class="sticky top-0 z-40 w-full backdrop-blur-md bg-brand-light-surface/85 dark:bg-brand-dark-surface/85 border-b border-brand-light-border dark:border-brand-dark-border transition-colors duration-200">
+  <div class="max-w-6xl mx-auto px-4 sm:px-6 h-16 flex items-center justify-between gap-4">
+    <!-- Brand / Title -->
+    <a href={url('/')} class="flex items-center gap-3 group">
+      <!-- 808s cracked heart micro-icon -->
+      <div class="relative w-8 h-8 rounded-lg bg-brand-grey-100 dark:bg-brand-dark-surfaceHover border border-brand-light-border dark:border-brand-dark-border flex items-center justify-center group-hover:border-brand-red dark:group-hover:border-brand-red-neon transition-colors duration-300">
+        <svg class="w-4 h-4 text-brand-red dark:text-brand-red-neon group-hover:scale-110 transition-transform duration-300" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"></path>
+          <path d="M12 5 L10 9 L14 12 L11 16 L12 21" stroke="currentColor" stroke-width="1.8"></path>
+        </svg>
+      </div>
+
+      <div>
+        <div class="flex items-center gap-2">
+          <span class="font-display font-bold tracking-wider text-base sm:text-lg text-brand-grey-900 dark:text-white uppercase group-hover:text-brand-red dark:group-hover:text-brand-red-neon transition-colors">
+            808s<span class="text-brand-red dark:text-brand-red-neon">.</span>LOGS
+          </span>
+          <span class="text-[9px] font-mono px-1.5 py-0.5 rounded bg-brand-red/10 text-brand-red dark:text-brand-red-neon border border-brand-red/20 hidden sm:inline-block">
+            v2.0
+          </span>
+        </div>
+      </div>
+    </a>
+
+    <!-- Right Controls: Section Dropdown + Theme Switch -->
+    <div class="flex items-center gap-2.5 sm:gap-3.5">
+      <SectionDropdown currentSection={currentSection} />
+      <div class="h-4 w-px bg-brand-light-border dark:bg-brand-dark-border"></div>
+      <ThemeToggle />
+    </div>
+  </div>
+
+  <!-- Micro red pulse line at the bottom of header -->
+  <div class="w-full h-[1px] bg-gradient-to-r from-transparent via-brand-red/40 dark:via-brand-red-neon/50 to-transparent"></div>
+</header>

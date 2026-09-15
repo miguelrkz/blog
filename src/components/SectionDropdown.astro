@@ -1,0 +1,155 @@
+---
+import { getCollection } from 'astro:content';
+import { slugify } from '../utils/slug';
+import { url } from '../utils/url';
+
+interface Props {
+  currentSection?: string;
+}
+
+const { currentSection } = Astro.props;
+
+// Fetch all posts to dynamically detect sections and counts
+const posts = await getCollection('posts');
+const sectionMap = new Map<string, number>();
+
+posts.forEach((post) => {
+  const sec = post.data.section?.trim() || 'General';
+  sectionMap.set(sec, (sectionMap.get(sec) || 0) + 1);
+});
+
+const sections = Array.from(sectionMap.entries()).sort((a, b) => a[0].localeCompare(b[0]));
+const totalPosts = posts.length;
+---
+
+<div class="relative inline-block text-left" id="section-dropdown-container">
+  <button
+    id="section-dropdown-trigger"
+    type="button"
+    aria-haspopup="true"
+    aria-expanded="false"
+    class="flex items-center gap-2 px-3.5 py-1.5 rounded-lg border border-brand-light-border dark:border-brand-dark-border bg-brand-light-surface dark:bg-brand-dark-surface hover:border-brand-red dark:hover:border-brand-red-neon transition-all duration-200 text-xs font-mono tracking-wider text-brand-grey-800 dark:text-brand-grey-200 shadow-sm focus:outline-none focus:ring-1 focus:ring-brand-red cursor-pointer group"
+  >
+    <span class="w-1.5 h-1.5 rounded-full bg-brand-red dark:bg-brand-red-neon animate-pulse"></span>
+    <span class="text-brand-grey-400 dark:text-brand-grey-500 font-normal">SEC //</span>
+    <span class="font-semibold uppercase text-brand-grey-900 dark:text-white">
+      {currentSection ? currentSection : "ALL SECTIONS"}
+    </span>
+    
+    <!-- Chevron icon -->
+    <svg 
+      id="dropdown-chevron"
+      class="w-3.5 h-3.5 text-brand-grey-400 dark:text-brand-grey-500 transition-transform duration-200 group-hover:text-brand-red dark:group-hover:text-brand-red-neon" 
+      viewBox="0 0 24 24" 
+      fill="none" 
+      stroke="currentColor" 
+      stroke-width="2" 
+      stroke-linecap="round" 
+      stroke-linejoin="round"
+    >
+      <polyline points="6 9 12 15 18 9"></polyline>
+    </svg>
+  </button>
+
+  <!-- Dropdown Menu -->
+  <div
+    id="section-dropdown-menu"
+    class="hidden absolute left-0 sm:left-auto sm:right-0 mt-2 w-64 origin-top-right rounded-lg border border-brand-light-border dark:border-brand-dark-border bg-brand-light-surface dark:bg-[#12141c] shadow-2xl backdrop-blur-md z-50 p-1.5 divide-y divide-brand-grey-100 dark:divide-brand-dark-border/60 transition-all"
+  >
+    <!-- Header info -->
+    <div class="px-2.5 py-1.5 text-[10px] font-mono tracking-widest text-brand-grey-400 dark:text-brand-grey-500 uppercase flex justify-between items-center">
+      <span>CHANNELS</span>
+      <span class="text-brand-red dark:text-brand-red-neon font-semibold">{totalPosts} ENTRIES</span>
+    </div>
+
+    <!-- Section items -->
+    <div class="pt-1.5 space-y-1 font-mono text-xs">
+      <!-- All Posts Option -->
+      <a
+        href={url('/')}
+        class={`flex items-center justify-between px-2.5 py-2 rounded-md transition-colors ${
+          !currentSection
+            ? 'bg-brand-red/10 text-brand-red dark:text-brand-red-neon font-semibold'
+            : 'text-brand-grey-700 dark:text-brand-grey-300 hover:bg-brand-grey-100 dark:hover:bg-brand-dark-surfaceHover'
+        }`}
+      >
+        <span class="flex items-center gap-2">
+          <span class="text-[10px] opacity-60">[//]</span>
+          ALL SECTIONS
+        </span>
+        <span class="text-[10px] px-1.5 py-0.5 rounded bg-brand-grey-200 dark:bg-brand-dark-border text-brand-grey-700 dark:text-brand-grey-400">
+          {totalPosts}
+        </span>
+      </a>
+
+      <!-- Individual Sections -->
+      {sections.map(([sec, count]) => {
+        const isSelected = currentSection?.toLowerCase() === sec.toLowerCase();
+        const secUrl = url(`/section/${slugify(sec)}`);
+        return (
+          <a
+            href={secUrl}
+            class={`flex items-center justify-between px-2.5 py-2 rounded-md transition-colors ${
+              isSelected
+                ? 'bg-brand-red/10 text-brand-red dark:text-brand-red-neon font-semibold'
+                : 'text-brand-grey-700 dark:text-brand-grey-300 hover:bg-brand-grey-100 dark:hover:bg-brand-dark-surfaceHover'
+            }`}
+          >
+            <span class="flex items-center gap-2 truncate pr-2">
+              <span class="text-[10px] opacity-60">&gt;</span>
+              <span class="truncate">{sec}</span>
+            </span>
+            <span class="text-[10px] px-1.5 py-0.5 rounded bg-brand-grey-200 dark:bg-brand-dark-border text-brand-grey-700 dark:text-brand-grey-400 shrink-0">
+              {count}
+            </span>
+          </a>
+        );
+      })}
+    </div>
+  </div>
+</div>
+
+<script is:inline>
+  function setupDropdown() {
+    const trigger = document.getElementById('section-dropdown-trigger');
+    const menu = document.getElementById('section-dropdown-menu');
+    const chevron = document.getElementById('dropdown-chevron');
+
+    if (!trigger || !menu) return;
+
+    function toggleMenu(show) {
+      const isCurrentlyHidden = menu.classList.contains('hidden');
+      const shouldOpen = show !== undefined ? show : isCurrentlyHidden;
+
+      if (shouldOpen) {
+        menu.classList.remove('hidden');
+        trigger.setAttribute('aria-expanded', 'true');
+        chevron?.classList.add('rotate-180');
+      } else {
+        menu.classList.add('hidden');
+        trigger.setAttribute('aria-expanded', 'false');
+        chevron?.classList.remove('rotate-180');
+      }
+    }
+
+    trigger.addEventListener('click', (e) => {
+      e.stopPropagation();
+      toggleMenu();
+    });
+
+    document.addEventListener('click', (e) => {
+      if (!menu.contains(e.target) && !trigger.contains(e.target)) {
+        toggleMenu(false);
+      }
+    });
+
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') {
+        toggleMenu(false);
+      }
+    });
+  }
+
+  setupDropdown();
+  document.addEventListener('astro:page-load', setupDropdown);
+</script>

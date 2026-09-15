@@ -1,0 +1,29 @@
+---
+import type { GetStaticPaths } from 'astro';
+import { getCollection } from 'astro:content';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import PostList from '../../components/PostList.astro';
+
+export const getStaticPaths = (async ({ paginate }) => {
+  const allPosts = await getCollection('posts');
+  allPosts.sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
+  return paginate(allPosts, { pageSize: 6 });
+}) satisfies GetStaticPaths;
+
+const { page } = Astro.props;
+
+const prevUrl = page.currentPage === 2 ? '/' : page.url.prev;
+---
+
+<BaseLayout title={`Transmissions - Page ${page.currentPage} // 808s.LOGS`}>
+  <PostList
+    posts={page.data}
+    title="ALL TRANSMISSIONS"
+    subtitle={`Archive transmission feed - Page ${page.currentPage} of ${page.lastPage}`}
+    currentPage={page.currentPage}
+    totalPages={page.lastPage}
+    prevUrl={prevUrl}
+    nextUrl={page.url.next}
+    baseUrl=""
+  />
+</BaseLayout>

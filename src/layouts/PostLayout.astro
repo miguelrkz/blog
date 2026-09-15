@@ -1,0 +1,133 @@
+---
+import BaseLayout from './BaseLayout.astro';
+import HeartbreakPlaceholder from '../components/HeartbreakPlaceholder.astro';
+import { slugify } from '../utils/slug';
+import { url } from '../utils/url';
+
+interface Props {
+  title: string;
+  description: string;
+  pubDate: Date;
+  section: string;
+  image?: string;
+  author?: string;
+}
+
+const { title, description, pubDate, section, image, author = 'Miguel Robledo' } = Astro.props;
+
+const formattedDate = new Date(pubDate).toLocaleDateString('en-US', {
+  year: 'numeric',
+  month: 'long',
+  day: 'numeric',
+});
+
+const sectionUrl = url(`/section/${slugify(section)}`);
+---
+
+<BaseLayout title={`${title} // 808s.LOGS`} description={description} currentSection={section}>
+  <article class="max-w-4xl mx-auto">
+    <!-- Back Navigation -->
+    <div class="mb-6 flex items-center justify-between">
+      <a
+        href={sectionUrl}
+        class="inline-flex items-center gap-2 text-xs font-mono font-semibold text-brand-grey-600 dark:text-brand-grey-400 hover:text-brand-red dark:hover:text-brand-red-neon transition-colors group"
+      >
+        <svg class="w-4 h-4 group-hover:-translate-x-1 transition-transform duration-200" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <line x1="19" y1="12" x2="5" y2="12"></line>
+          <polyline points="12 19 5 12 12 5"></polyline>
+        </svg>
+        <span>RETURN TO // {section.toUpperCase()}</span>
+      </a>
+
+      <div class="text-[10px] font-mono text-brand-grey-400 dark:text-brand-grey-500 uppercase tracking-widest hidden sm:block">
+        DOC REF // {slugify(title).slice(0, 16)}
+      </div>
+    </div>
+
+    <!-- Article Header Card -->
+    <header class="rounded-2xl border border-brand-light-border dark:border-brand-dark-border bg-brand-light-surface dark:bg-brand-dark-surface overflow-hidden mb-10 shadow-sm hud-corners">
+      <!-- Banner Image or Fallback -->
+      <div class="relative w-full aspect-[21/9] sm:aspect-[2.4/1] overflow-hidden bg-brand-grey-100 dark:bg-brand-dark-surfaceHover">
+        {image && image.trim() !== '' ? (
+          <img
+            src={image.startsWith('http') ? image : url(image)}
+            alt={title}
+            class="w-full h-full object-cover"
+          />
+        ) : (
+          <HeartbreakPlaceholder title={title} className="w-full h-full min-h-[220px]" />
+        )}
+
+        <!-- Micro red glowing rim at bottom of hero -->
+        <div class="absolute bottom-0 inset-x-0 h-[1px] bg-gradient-to-r from-transparent via-brand-red dark:via-brand-red-neon to-transparent"></div>
+      </div>
+
+      <!-- Header Metadata & Title Area -->
+      <div class="p-6 sm:p-8">
+        <div class="flex flex-wrap items-center gap-3 text-xs font-mono mb-4">
+          <a
+            href={sectionUrl}
+            class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded bg-brand-red/10 text-brand-red dark:text-brand-red-neon border border-brand-red/20 uppercase font-semibold hover:scale-105 transition-transform"
+          >
+            <span class="w-1.5 h-1.5 rounded-full bg-brand-red dark:bg-brand-red-neon"></span>
+            {section}
+          </a>
+
+          <span class="text-brand-grey-300 dark:text-brand-grey-700">|</span>
+
+          <time datetime={new Date(pubDate).toISOString()} class="text-brand-grey-600 dark:text-brand-grey-400">
+            {formattedDate}
+          </time>
+
+          <span class="text-brand-grey-300 dark:text-brand-grey-700">|</span>
+
+          <span class="text-brand-grey-600 dark:text-brand-grey-400">
+            BY {author.toUpperCase()}
+          </span>
+        </div>
+
+        <h1 class="font-display font-bold text-2xl sm:text-4xl text-brand-grey-900 dark:text-white leading-tight mb-4 tracking-tight">
+          {title}
+        </h1>
+
+        <p class="text-base sm:text-lg text-brand-grey-600 dark:text-brand-grey-300 font-normal leading-relaxed border-l-2 border-brand-red/60 pl-4 py-0.5">
+          {description}
+        </p>
+      </div>
+    </header>
+
+    <!-- Post Content -->
+    <div class="prose prose-slate dark:prose-invert max-w-none 
+      prose-headings:font-display prose-headings:font-bold prose-headings:tracking-tight
+      prose-h2:text-2xl prose-h2:border-b prose-h2:border-brand-light-border dark:prose-h2:border-brand-dark-border prose-h2:pb-3 prose-h2:mt-10
+      prose-h3:text-xl prose-h3:text-brand-red dark:prose-h3:text-brand-red-neon
+      prose-p:leading-relaxed prose-p:text-brand-grey-800 dark:prose-p:text-brand-grey-200
+      prose-a:text-brand-red dark:prose-a:text-brand-red-neon prose-a:no-underline hover:prose-a:underline
+      prose-blockquote:border-l-4 prose-blockquote:border-brand-red dark:prose-blockquote:border-brand-red-neon prose-blockquote:bg-brand-red/5 dark:prose-blockquote:bg-brand-red-neon/5 prose-blockquote:px-5 prose-blockquote:py-2 prose-blockquote:rounded-r-lg prose-blockquote:italic
+      prose-code:font-mono prose-code:text-brand-red dark:prose-code:text-brand-red-neon prose-code:bg-brand-grey-100 dark:prose-code:bg-brand-dark-surfaceHover prose-code:px-1.5 prose-code:py-0.5 prose-code:rounded prose-code:before:content-none prose-code:after:content-none
+      prose-pre:border prose-pre:border-brand-light-border dark:prose-pre:border-brand-dark-border prose-pre:bg-[#0d0e14] prose-pre:rounded-xl
+      prose-img:rounded-xl prose-img:border prose-img:border-brand-light-border dark:prose-img:border-brand-dark-border
+      prose-hr:border-brand-light-border dark:prose-hr:border-brand-dark-border
+    ">
+      <slot />
+    </div>
+
+    <!-- Post Footer Navigation -->
+    <div class="mt-14 pt-8 border-t border-brand-light-border dark:border-brand-dark-border flex flex-col sm:flex-row items-center justify-between gap-4 font-mono text-xs">
+      <a
+        href={url('/')}
+        class="inline-flex items-center gap-2 px-4 py-2 rounded-lg border border-brand-light-border dark:border-brand-dark-border bg-brand-light-surface dark:bg-brand-dark-surface hover:border-brand-red dark:hover:border-brand-red-neon text-brand-grey-800 dark:text-brand-grey-200 transition-colors"
+      >
+        <svg class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <polyline points="15 18 9 12 15 6"></polyline>
+        </svg>
+        <span>RETURN TO ALL POSTS</span>
+      </a>
+
+      <div class="flex items-center gap-2 text-brand-grey-500">
+        <span class="w-2 h-2 rounded-full bg-brand-red dark:bg-brand-red-neon"></span>
+        <span>END OF TRANSMISSION</span>
+      </div>
+    </div>
+  </article>
+</BaseLayout>

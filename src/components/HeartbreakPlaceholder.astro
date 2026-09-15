@@ -1,0 +1,66 @@
+---
+interface Props {
+  className?: string;
+  title?: string;
+}
+
+const { className = "w-full h-full", title = "808s Audio System" } = Astro.props;
+---
+
+<div class={`relative overflow-hidden flex items-center justify-center bg-gradient-to-b from-brand-grey-100 to-brand-grey-200 dark:from-[#0d0f14] dark:to-[#161820] select-none ${className}`}>
+  <!-- Subtle futuristic HUD grid -->
+  <div class="absolute inset-0 bg-[linear-gradient(to_right,#80808012_1px,transparent_1px),linear-gradient(to_bottom,#80808012_1px,transparent_1px)] bg-[size:16px_16px] pointer-events-none"></div>
+
+  <!-- Ambient red glow in center -->
+  <div class="absolute w-32 h-32 rounded-full bg-brand-red/20 blur-2xl pointer-events-none"></div>
+
+  <!-- SVG Artwork: 808s Heartbreak Heart + Soundwave + HUD elements -->
+  <svg class="w-24 h-24 sm:w-28 sm:h-28 text-brand-red dark:text-brand-red-neon relative z-10 transition-transform duration-500 group-hover:scale-105" viewBox="0 0 120 120" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <!-- Heart outline with central heartbreak split -->
+    <path 
+      d="M60 98 C30 75 10 50 10 32 C10 18 20 8 34 8 C44 8 53 14 60 23 C67 14 76 8 86 8 C100 8 110 18 110 32 C110 50 90 75 60 98 Z" 
+      stroke="currentColor" 
+      stroke-width="2.5" 
+      stroke-linecap="round" 
+      stroke-linejoin="round"
+      class="opacity-90"
+    />
+    
+    <!-- Iconic 808s heartbreak zigzag split down center -->
+    <path 
+      d="M60 24 L54 38 L66 50 L52 64 L65 76 L60 95" 
+      stroke="currentColor" 
+      stroke-width="2.5" 
+      stroke-linecap="round" 
+      stroke-linejoin="round"
+      class="opacity-95 drop-shadow-[0_0_8px_currentColor]"
+    />
+
+    <!-- Subtle audio heartbeat waveform passing across -->
+    <path 
+      d="M18 52 H32 L36 44 L42 60 L46 48 L50 52" 
+      stroke="currentColor" 
+      stroke-width="1.5" 
+      stroke-linecap="round"
+      stroke-linejoin="round" 
+      opacity="0.45"
+    />
+    <path 
+      d="M70 52 H74 L78 42 L84 62 L88 47 L92 52 H102" 
+      stroke="currentColor" 
+      stroke-width="1.5" 
+      stroke-linecap="round"
+      stroke-linejoin="round" 
+      opacity="0.45"
+    />
+
+    <!-- Corner HUD telemetry marks -->
+    <circle cx="60" cy="23" r="2" fill="currentColor" class="animate-ping opacity-75" />
+  </svg>
+
+  <!-- Telemetry labels -->
+  <div class="absolute bottom-2 left-3 right-3 flex items-center justify-between text-[9px] font-mono tracking-widest text-brand-grey-500 dark:text-brand-grey-400 uppercase">
+    <span>HB-808 // REC</span>
+    <span class="text-brand-red dark:text-brand-red-neon font-semibold">SIGNAL ACTIVE</span>
+  </div>
+</div>

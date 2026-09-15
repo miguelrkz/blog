@@ -1,0 +1,93 @@
+---
+import type { CollectionEntry } from 'astro:content';
+import HeartbreakPlaceholder from './HeartbreakPlaceholder.astro';
+import { slugify } from '../utils/slug';
+import { url } from '../utils/url';
+
+interface Props {
+  post: CollectionEntry<'posts'>;
+}
+
+const { post } = Astro.props;
+const { title, description, pubDate, section, image } = post.data;
+
+// Format date in futuristic ISO/mono style: YYYY.MM.DD
+const formattedDate = new Date(pubDate).toLocaleDateString('en-US', {
+  year: 'numeric',
+  month: 'short',
+  day: '2-digit',
+});
+
+const postUrl = url(`/posts/${post.id.replace(/\.[^/.]+$/, '')}`);
+const sectionUrl = url(`/section/${slugify(section)}`);
+---
+
+<article class="group relative flex flex-col rounded-xl border border-brand-light-border dark:border-brand-dark-border bg-brand-light-surface dark:bg-brand-dark-surface hover:border-brand-red/60 dark:hover:border-brand-red-neon/60 transition-all duration-300 shadow-sm hover:shadow-lg dark:hover:shadow-glow-red-sm overflow-hidden hud-corners">
+  <!-- Visual Header: Image or 808s Placeholder -->
+  <a href={postUrl} class="relative aspect-[16/9] w-full overflow-hidden bg-brand-grey-100 dark:bg-brand-dark-surfaceHover block">
+    {image && image.trim() !== '' ? (
+      <img
+        src={image.startsWith('http') ? image : url(image)}
+        alt={title}
+        loading="lazy"
+        class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+      />
+    ) : (
+      <HeartbreakPlaceholder title={title} />
+    )}
+
+    <!-- Section Badge on top of image -->
+    <div class="absolute top-3 left-3 z-20">
+      <a
+        href={sectionUrl}
+        class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded bg-white/90 dark:bg-black/80 backdrop-blur-md border border-brand-light-border dark:border-white/10 text-[10px] font-mono tracking-widest text-brand-red dark:text-brand-red-neon uppercase font-semibold hover:scale-105 transition-transform"
+      >
+        <span class="w-1.5 h-1.5 rounded-full bg-brand-red dark:bg-brand-red-neon"></span>
+        {section}
+      </a>
+    </div>
+  </a>
+
+  <!-- Content Container -->
+  <div class="p-5 flex-1 flex flex-col justify-between">
+    <div>
+      <!-- Metadata Row: Date & Reading status -->
+      <div class="flex items-center justify-between text-[11px] font-mono text-brand-grey-500 dark:text-brand-grey-400 mb-2.5">
+        <time datetime={new Date(pubDate).toISOString()}>
+          {formattedDate}
+        </time>
+        <span class="tracking-widest opacity-70 uppercase">TRANSMISSION</span>
+      </div>
+
+      <!-- Title -->
+      <h2 class="font-display font-bold text-lg sm:text-xl text-brand-grey-900 dark:text-white group-hover:text-brand-red dark:group-hover:text-brand-red-neon transition-colors duration-200 line-clamp-2 mb-2 leading-snug">
+        <a href={postUrl}>
+          {title}
+        </a>
+      </h2>
+
+      <!-- Description -->
+      <p class="text-sm text-brand-grey-600 dark:text-brand-grey-300 line-clamp-3 leading-relaxed mb-4">
+        {description}
+      </p>
+    </div>
+
+    <!-- Read Entry Link / Action -->
+    <div class="pt-4 border-t border-brand-light-border/60 dark:border-brand-dark-border/60 flex items-center justify-between mt-auto">
+      <a
+        href={postUrl}
+        class="inline-flex items-center gap-2 text-xs font-mono font-semibold tracking-wider text-brand-red dark:text-brand-red-neon group-hover:translate-x-1 transition-transform duration-200"
+      >
+        <span>ENTER TRANSMISSION</span>
+        <svg class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+          <line x1="5" y1="12" x2="19" y2="12"></line>
+          <polyline points="12 5 19 12 12 19"></polyline>
+        </svg>
+      </a>
+
+      <span class="text-[10px] font-mono text-brand-grey-400 dark:text-brand-grey-500">
+        [//]
+      </span>
+    </div>
+  </div>
+</article>

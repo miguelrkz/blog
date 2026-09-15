@@ -1,0 +1,28 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '../layouts/BaseLayout.astro';
+import PostList from '../components/PostList.astro';
+
+const PAGE_SIZE = 6;
+const allPosts = await getCollection('posts');
+
+// Sort by date descending
+allPosts.sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
+
+const totalPosts = allPosts.length;
+const totalPages = Math.ceil(totalPosts / PAGE_SIZE) || 1;
+const paginatedPosts = allPosts.slice(0, PAGE_SIZE);
+const nextUrl = totalPages > 1 ? '/page/2' : undefined;
+---
+
+<BaseLayout title="808s & Heartbreak // Modern Minimalist Blog">
+  <PostList
+    posts={paginatedPosts}
+    title="ALL TRANSMISSIONS"
+    subtitle="Engineered with an 808s & Heartbreak palette, exploring sound, architecture, code, and digital isolation."
+    currentPage={1}
+    totalPages={totalPages}
+    nextUrl={nextUrl}
+    baseUrl=""
+  />
+</BaseLayout>

@@ -1,0 +1,31 @@
+---
+import { url } from '../utils/url';
+---
+
+<footer class="mt-20 border-t border-brand-light-border dark:border-brand-dark-border bg-brand-light-surface/60 dark:bg-brand-dark-surface/60 backdrop-blur-sm text-xs font-mono text-brand-grey-500 dark:text-brand-grey-400 py-10 transition-colors">
+  <div class="max-w-6xl mx-auto px-4 sm:px-6 flex flex-col sm:flex-row items-center justify-between gap-6">
+    <!-- Left: Status & 808s heart indicator -->
+    <div class="flex items-center gap-3">
+      <div class="w-2.5 h-2.5 rounded-full bg-brand-red dark:bg-brand-red-neon animate-ping"></div>
+      <div class="flex items-center gap-1.5">
+        <span class="text-brand-grey-900 dark:text-white font-bold tracking-wider uppercase">808s // SYSTEM</span>
+        <span class="text-brand-red dark:text-brand-red-neon font-semibold">ONLINE</span>
+      </div>
+    </div>
+
+    <!-- Center: Heartbeat audio waveform -->
+    <div class="flex items-center gap-1 opacity-60">
+      <div class="w-0.5 h-2 bg-brand-red dark:bg-brand-red-neon animate-pulse"></div>
+      <div class="w-0.5 h-4 bg-brand-red dark:bg-brand-red-neon animate-pulse" style="animation-delay: 150ms"></div>
+      <div class="w-0.5 h-6 bg-brand-red dark:bg-brand-red-neon animate-pulse" style="animation-delay: 300ms"></div>
+      <div class="w-0.5 h-3 bg-brand-red dark:bg-brand-red-neon animate-pulse" style="animation-delay: 450ms"></div>
+      <div class="w-0.5 h-5 bg-brand-red dark:bg-brand-red-neon animate-pulse" style="animation-delay: 600ms"></div>
+    </div>
+
+    <!-- Right: Copyright & GitHub push reminder -->
+    <div class="text-center sm:text-right text-[11px] text-brand-grey-400 dark:text-brand-grey-500">
+      <p>Markdown Driven &bull; Auto-deployed via GitHub Pages</p>
+      <p class="text-[10px] mt-0.5 text-brand-grey-400 dark:text-brand-grey-600">808s & HEARTBREAK PALETTE &bull; FUTURISTIC MINIMALISM</p>
+    </div>
+  </div>
+</footer>

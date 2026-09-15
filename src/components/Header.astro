@@ -11,38 +11,39 @@ const { currentSection } = Astro.props;
 ---
 
 <header class="sticky top-0 z-40 w-full backdrop-blur-md bg-brand-light-surface/85 dark:bg-brand-dark-surface/85 border-b border-brand-light-border dark:border-brand-dark-border transition-colors duration-200">
-  <div class="max-w-6xl mx-auto px-4 sm:px-6 h-16 flex items-center justify-between gap-4">
+  <div class="max-w-6xl mx-auto px-3 sm:px-6 h-14 sm:h-16 flex items-center justify-between gap-2 sm:gap-4">
     <!-- Brand / Title -->
-    <a href={url('/')} class="flex items-center gap-3 group">
+    <a href={url('/')} class="flex items-center gap-2 sm:gap-3 group shrink-0">
       <!-- Minecraft pixel broken heart -->
       <img
         src={url('/minecraft.png')}
         alt="MiguelRKZ"
-        class="w-7 h-7 sm:w-8 sm:h-8 object-contain [image-rendering:pixelated] group-hover:scale-110 transition-transform duration-300 drop-shadow-[0_2px_8px_rgba(225,29,72,0.35)]"
+        class="w-6 h-6 sm:w-8 sm:h-8 object-contain [image-rendering:pixelated] group-hover:scale-110 transition-transform duration-300 drop-shadow-[0_2px_8px_rgba(225,29,72,0.35)]"
       />
 
-      <span class="font-logo font-bold tracking-wider text-lg sm:text-xl text-brand-grey-900 dark:text-white uppercase group-hover:text-brand-red dark:group-hover:text-brand-red-neon transition-colors">
+      <span class="font-logo font-bold tracking-wider text-base sm:text-xl text-brand-grey-900 dark:text-white uppercase group-hover:text-brand-red dark:group-hover:text-brand-red-neon transition-colors">
         MIGUELRKZ
       </span>
     </a>
 
     <!-- Right Controls: Section Dropdown + Theme Switch -->
-    <div class="flex items-center gap-2 sm:gap-3">
+    <div class="flex items-center gap-1.5 sm:gap-3 min-w-0">
       {currentSection && (
         <a
           href={url('/')}
-          class="flex items-center gap-1.5 px-3 py-1.5 rounded-lg border border-brand-light-border dark:border-brand-dark-border bg-brand-light-surface dark:bg-brand-dark-surface hover:border-brand-red dark:hover:border-brand-red-neon text-xs font-mono tracking-wider text-brand-grey-700 dark:text-brand-grey-300 hover:text-brand-red dark:hover:text-brand-red-neon transition-all duration-200 shadow-sm group"
+          class="flex items-center gap-1 sm:gap-1.5 px-2 sm:px-3 py-1.5 rounded-lg border border-brand-light-border dark:border-brand-dark-border bg-brand-light-surface dark:bg-brand-dark-surface hover:border-brand-red dark:hover:border-brand-red-neon text-xs font-mono tracking-wider text-brand-grey-700 dark:text-brand-grey-300 hover:text-brand-red dark:hover:text-brand-red-neon transition-all duration-200 shadow-sm group shrink-0"
           title="Return to All Sections"
         >
           <svg class="w-3.5 h-3.5 group-hover:-translate-x-0.5 transition-transform duration-200" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
             <polyline points="15 18 9 12 15 6"></polyline>
           </svg>
-          <span class="font-medium">ALL SECTIONS</span>
+          <span class="font-medium hidden sm:inline">ALL SECTIONS</span>
+          <span class="font-medium sm:hidden text-[11px]">ALL</span>
         </a>
       )}
 
       <SectionDropdown currentSection={currentSection} />
-      <div class="h-4 w-px bg-brand-light-border dark:border-brand-dark-border"></div>
+      <div class="h-4 w-px bg-brand-light-border dark:border-brand-dark-border hidden xs:block"></div>
       <ThemeToggle />
     </div>
   </div>

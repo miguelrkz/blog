@@ -6,7 +6,8 @@
   id="theme-toggle"
   type="button"
   aria-label="Toggle visual mode"
-  class="relative inline-flex items-center gap-2 px-3 py-1.5 rounded-full border border-brand-light-border dark:border-brand-dark-border bg-brand-light-surface dark:bg-brand-dark-surface hover:border-brand-red dark:hover:border-brand-red-neon transition-all duration-300 text-xs font-mono tracking-wider text-brand-grey-700 dark:text-brand-grey-300 shadow-sm focus:outline-none focus:ring-1 focus:ring-brand-red cursor-pointer group"
+  class="relative inline-flex items-center justify-center gap-1.5 sm:gap-2 w-8 h-8 sm:w-auto sm:px-3 sm:py-1.5 rounded-full border border-brand-light-border dark:border-brand-dark-border bg-brand-light-surface dark:bg-brand-dark-surface hover:border-brand-red dark:hover:border-brand-red-neon transition-all duration-300 text-xs font-mono tracking-wider text-brand-grey-700 dark:text-brand-grey-300 shadow-sm focus:outline-none focus:ring-1 focus:ring-brand-red cursor-pointer group shrink-0"
+  title="Toggle dark / light mode"
 >
   <!-- Light Mode Icon (Sun) -->
   <span class="dark:hidden flex items-center gap-1.5 text-brand-grey-800">
@@ -33,7 +34,7 @@
   </span>
 
   <!-- Futuristic status pip -->
-  <span class="w-1.5 h-1.5 rounded-full bg-brand-red dark:bg-brand-red-neon group-hover:scale-125 transition-transform duration-200"></span>
+  <span class="hidden sm:inline-block w-1.5 h-1.5 rounded-full bg-brand-red dark:bg-brand-red-neon group-hover:scale-125 transition-transform duration-200"></span>
 </button>
 
 <script is:inline>

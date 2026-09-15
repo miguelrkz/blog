@@ -1,20 +1,25 @@
 ---
-title: "The Soul of Voltage: Modular Synthesizers in 2026"
-description: "A breakdown of voltage-controlled oscillators, patch cables, and generating organic warmth out of pure electrical current."
+title: "The Art of Lean Software: Architectural Minimalism"
+description: "Why eliminating unnecessary abstractions, minimizing external dependencies, and building clean primitives leads to durable systems."
 pubDate: 2026-09-12
-section: "Music & Sound"
-image: "https://images.unsplash.com/photo-1598488035139-bdbb2231ce04?auto=format&fit=crop&w=1200&q=80"
+section: "Engineering"
+image: "https://images.unsplash.com/photo-1555066931-4365d14bab8c?auto=format&fit=crop&w=1200&q=80"
 author: "Miguel Robledo"
 ---
 
-Working with modular synthesis requires unlearning modern DAW workflows. Instead of drawing MIDI notes on a grid, you sculpt voltages, routing signals through attenuators and low-pass gates.
+Modern software development often suffers from premature complexity. Teams frequently add layers of indirection, microservices, and sprawling third-party dependencies before understanding the fundamental problem they are solving.
 
-### Signal Flow Fundamentals
+### Principles of Minimalist Architecture
 
-When patching an 808-style kick drum or synthetic bass:
+1. **Clear Primitives**: Build on top of well-understood foundation layers rather than wrapping everything in ephemeral frameworks.
+2. **Explicit Data Flow**: Prefer straightforward, unidirectional pipelines over event-driven entanglement when simplicity suffices.
+3. **Small Surface Area**: Every function exposed is a liability; every dependency introduced is code you have agreed to maintain.
 
-- **Core Oscillator**: Sine wave tuned down to sub-bass range (30-60 Hz).
-- **Pitch Envelope**: Exponential decay creating the distinct percussive transient punch.
-- **Wavefolder**: Adding harmonic grit and slight saturation to cut through mixes on small speakers.
+```typescript
+// Prefer explicit, pure transformations
+function processStream<T, R>(input: ReadonlyArray<T>, transform: (item: T) => R): ReadonlyArray<R> {
+  return input.map(transform);
+}
+```
 
-The feedback loops remind us that music is physical, tactile, and unpredictable.
+By prioritizing restraint over expansion, software systems remain fast, maintainable, and understandable for years to come.

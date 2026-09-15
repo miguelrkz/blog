@@ -23,20 +23,22 @@ const sectionUrl = url(`/section/${slugify(section)}`);
 ---
 
 <article class="group relative flex flex-col rounded-xl border border-brand-light-border dark:border-brand-dark-border bg-brand-light-surface dark:bg-brand-dark-surface hover:border-brand-red/60 dark:hover:border-brand-red-neon/60 transition-all duration-300 shadow-sm hover:shadow-lg dark:hover:shadow-glow-red-sm overflow-hidden hud-corners">
-  <!-- Visual Header: Image or 808s Placeholder -->
-  <a href={postUrl} class="relative aspect-[16/9] w-full overflow-hidden bg-brand-grey-100 dark:bg-brand-dark-surfaceHover block">
-    {image && image.trim() !== '' ? (
-      <img
-        src={image.startsWith('http') ? image : url(image)}
-        alt={title}
-        loading="lazy"
-        class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
-      />
-    ) : (
-      <HeartbreakPlaceholder title={title} />
-    )}
+  <!-- Visual Header: Image or Minecraft Heart Placeholder -->
+  <div class="relative aspect-[16/9] w-full overflow-hidden bg-white dark:bg-[#12131a] block border-b border-brand-light-border/80 dark:border-brand-dark-border/80">
+    <a href={postUrl} class="block w-full h-full" aria-label={title}>
+      {image && image.trim() !== '' ? (
+        <img
+          src={image.startsWith('http') ? image : url(image)}
+          alt={title}
+          loading="lazy"
+          class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+        />
+      ) : (
+        <HeartbreakPlaceholder title={title} />
+      )}
+    </a>
 
-    <!-- Section Badge on top of image -->
+    <!-- Section Badge on top of image (Separate sibling link) -->
     <div class="absolute top-3 left-3 z-20">
       <a
         href={sectionUrl}
@@ -46,7 +48,7 @@ const sectionUrl = url(`/section/${slugify(section)}`);
         {section}
       </a>
     </div>
-  </a>
+  </div>
 
   <!-- Content Container -->
   <div class="p-5 flex-1 flex flex-col justify-between">
@@ -56,7 +58,7 @@ const sectionUrl = url(`/section/${slugify(section)}`);
         <time datetime={new Date(pubDate).toISOString()}>
           {formattedDate}
         </time>
-        <span class="tracking-widest opacity-70 uppercase">TRANSMISSION</span>
+        <span class="tracking-widest opacity-70 uppercase">ENTRY</span>
       </div>
 
       <!-- Title -->
@@ -78,7 +80,7 @@ const sectionUrl = url(`/section/${slugify(section)}`);
         href={postUrl}
         class="inline-flex items-center gap-2 text-xs font-mono font-semibold tracking-wider text-brand-red dark:text-brand-red-neon group-hover:translate-x-1 transition-transform duration-200"
       >
-        <span>ENTER TRANSMISSION</span>
+        <span>READ ENTRY</span>
         <svg class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
           <line x1="5" y1="12" x2="19" y2="12"></line>
           <polyline points="12 5 19 12 12 19"></polyline>

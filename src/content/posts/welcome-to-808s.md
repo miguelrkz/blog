@@ -1,5 +1,5 @@
 ---
-title: "Welcome to 808s: Minimalist Transmission Guide"
+title: "Welcome to the Blog: Setup & Writing Guide"
 description: "A comprehensive guide on how this blog operates, managing markdown files, frontmatter specifications, and automated GitHub Pages deployments."
 pubDate: 2026-09-16
 section: "General"
@@ -7,17 +7,15 @@ image: ""
 author: "Miguel Robledo"
 ---
 
-Welcome to your new markdown-driven blog. This system was engineered specifically to blend the emotional minimalism of the **808s & Heartbreak** aesthetic with a razor-sharp, modern futuristic HUD feel.
+Welcome to your new markdown-driven personal blog. This platform is engineered with a minimalist aesthetic combining cool greys, stark whites, deep obsidian blacks, and vivid red accents.
 
-## Visual Design & The 808s Philosophy
+## Visual Design & Theme
 
-The design centers on three key pillars:
+The interface provides a clean, focused reading experience:
 
-- **Light Mode (Clear)**: Cool chalk greys, pure whites, and vivid 808s Heartbreak red accents.
-- **Dark Mode**: Obsidian black, carbon slate greys, and glowing infrared neon highlights.
-- **Futuristic Telemetry**: Monospace coordinates, audio waveform pulse lines, and hairline borders.
-
-> "Keep it simple. Everything synthetic, yet emotionally resonant."
+- **Light Mode (Clear)**: Cool chalk greys, pure whites, and vivid red accents.
+- **Dark Mode**: Obsidian black, carbon slate greys, and glowing neon red highlights.
+- **Futuristic Accents**: Monospace telemetry, hairline borders, and subtle grid textures.
 
 ---
 
@@ -33,8 +31,8 @@ Writing a new post takes only seconds:
 title: "Your Post Title"
 description: "A brief summary that will appear on the card preview."
 pubDate: 2026-09-16
-section: "Music & Sound" # Creates or assigns to this section
-image: "" # Optional URL or local image path. Leave empty for 808s placeholder!
+section: "Engineering" # Creates or assigns to this section
+image: "" # Optional URL or local image path. Leave empty for the graphic placeholder!
 author: "Miguel Robledo"
 ---
 ```
@@ -52,9 +50,9 @@ Within 60 to 90 seconds, GitHub Actions automatically builds the static site and
 
 ---
 
-## Automatic Features
+## Key Features
 
-- **Dynamic Section Detection**: Whenever you use a new `section` in frontmatter, the top dropdown automatically detects it and creates a dedicated channel page.
-- **Automatic Fallback Placeholders**: If you don't supply an image or leave `image: ""` blank, our custom 808s cracked heart and audio waveform SVG will render automatically.
-- **Dark/Light Mode Persistence**: Your visitors can toggle modes using the pill button in the top right, and their preference is saved in their browser.
+- **Dynamic Section Detection**: Whenever you use a new `section` in frontmatter, the top dropdown automatically detects it and creates a dedicated filtered view.
+- **Automatic Fallback Placeholders**: If you don't supply an image or leave `image: ""` blank, a custom graphic placeholder will render automatically.
+- **Dark/Light Mode Persistence**: Visitors can toggle modes using the button in the top right, and their preference is saved in their browser.
 - **Clean Responsive Cards**: Grid layout scales seamlessly from mobile screens to ultra-wide displays.

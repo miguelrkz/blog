@@ -24,7 +24,7 @@ const formattedDate = new Date(pubDate).toLocaleDateString('en-US', {
 const sectionUrl = url(`/section/${slugify(section)}`);
 ---
 
-<BaseLayout title={`${title} // 808s.LOGS`} description={description} currentSection={section}>
+<BaseLayout title={`${title} // MiguelRKZ's blog`} description={description} currentSection={section}>
   <article class="max-w-4xl mx-auto">
     <!-- Back Navigation -->
     <div class="mb-6 flex items-center justify-between">
@@ -47,7 +47,7 @@ const sectionUrl = url(`/section/${slugify(section)}`);
     <!-- Article Header Card -->
     <header class="rounded-2xl border border-brand-light-border dark:border-brand-dark-border bg-brand-light-surface dark:bg-brand-dark-surface overflow-hidden mb-10 shadow-sm hud-corners">
       <!-- Banner Image or Fallback -->
-      <div class="relative w-full aspect-[21/9] sm:aspect-[2.4/1] overflow-hidden bg-brand-grey-100 dark:bg-brand-dark-surfaceHover">
+      <div class="relative w-full aspect-[21/9] sm:aspect-[2.4/1] overflow-hidden bg-white dark:bg-[#12131a] border-b border-brand-light-border/80 dark:border-brand-dark-border/80">
         {image && image.trim() !== '' ? (
           <img
             src={image.startsWith('http') ? image : url(image)}
@@ -126,7 +126,7 @@ const sectionUrl = url(`/section/${slugify(section)}`);
 
       <div class="flex items-center gap-2 text-brand-grey-500">
         <span class="w-2 h-2 rounded-full bg-brand-red dark:bg-brand-red-neon"></span>
-        <span>END OF TRANSMISSION</span>
+        <span>END OF ENTRY</span>
       </div>
     </div>
   </article>

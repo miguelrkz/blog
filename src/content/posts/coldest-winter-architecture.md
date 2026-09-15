@@ -26,4 +26,4 @@ By stripping away ornamental facades, architecture can focus on pure volumetric 
 }
 ```
 
-The minimalism of the 808s palette functions the same way: grey foundations, white spatial breathing room, and sharp red accents that demand your attention.
+The minimalism of this color palette functions the same way: grey foundations, white spatial breathing room, and sharp red accents that demand your attention.

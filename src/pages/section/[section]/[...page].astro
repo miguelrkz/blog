@@ -31,14 +31,13 @@ const { section } = Astro.params;
 ---
 
 <BaseLayout
-  title={`${sectionName} // 808s.LOGS`}
-  description={`Browse articles and transmissions filed under ${sectionName}.`}
+  title={`${sectionName} // MiguelRKZ's blog`}
+  description={`Browse articles filed under ${sectionName}.`}
   currentSection={sectionName}
 >
   <PostList
     posts={page.data}
     title={`SECTION // ${sectionName}`}
-    subtitle={`Transmissions categorized under "${sectionName}". Page ${page.currentPage} of ${page.lastPage}.`}
     currentPage={page.currentPage}
     totalPages={page.lastPage}
     prevUrl={page.url.prev}

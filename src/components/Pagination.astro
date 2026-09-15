@@ -6,7 +6,7 @@ interface Props {
   totalPages: number;
   prevUrl?: string;
   nextUrl?: string;
-  baseUrl: string; // e.g. "" for home, or "/section/music"
+  baseUrl: string; // e.g. "" for home, or "/section/engineering"
 }
 
 const { currentPage, totalPages, prevUrl, nextUrl, baseUrl } = Astro.props;
@@ -23,7 +23,7 @@ function getPageUrl(pageNum: number): string {
   if (pageNum === 1) {
     return url(baseUrl === '' ? '/' : baseUrl);
   }
-  // For page 2+, if baseUrl is empty: /page/2, if baseUrl is /section/music: /section/music/2 or /section/music/page/2
+  // For page 2+, if baseUrl is empty: /page/2, if baseUrl is /section/engineering: /section/engineering/2
   const prefix = baseUrl === '' ? '/page' : `${baseUrl}`;
   return url(`${prefix}/${pageNum}`);
 }

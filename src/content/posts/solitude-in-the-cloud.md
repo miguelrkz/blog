@@ -13,4 +13,4 @@ There is peace in building systems that work silently in the background: git com
 
 > "True simplicity is not the absence of clutter, that's a consequence of simplicity. Simplicity is somehow essentially describing the purpose and place of an object."
 
-Here's to the late night builders, the listeners of analog synths, and the quiet architectures that carry our ideas forward.
+Here's to the late night builders, the deep thinkers, and the quiet architectures that carry our ideas forward.

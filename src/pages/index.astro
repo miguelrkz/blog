@@ -15,11 +15,9 @@ const paginatedPosts = allPosts.slice(0, PAGE_SIZE);
 const nextUrl = totalPages > 1 ? '/page/2' : undefined;
 ---
 
-<BaseLayout title="808s & Heartbreak // Modern Minimalist Blog">
+<BaseLayout title="MiguelRKZ's blog">
   <PostList
     posts={paginatedPosts}
-    title="ALL TRANSMISSIONS"
-    subtitle="Engineered with an 808s & Heartbreak palette, exploring sound, architecture, code, and digital isolation."
     currentPage={1}
     totalPages={totalPages}
     nextUrl={nextUrl}

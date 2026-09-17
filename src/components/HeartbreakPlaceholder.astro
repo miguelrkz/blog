@@ -6,19 +6,19 @@ interface Props {
   title?: string;
 }
 
-const { className = "w-full h-full", title = "Minecraft Heart Placeholder" } = Astro.props;
+const { className = "w-full h-full", title = "Skull Placeholder" } = Astro.props;
 ---
 
 <div class={`relative overflow-hidden flex items-center justify-center bg-white dark:bg-[#12131a] select-none ${className}`}>
-  <!-- Subtle ambient red glow behind heart -->
+  <!-- Subtle ambient red glow behind skull -->
   <div class="absolute w-24 h-24 sm:w-28 sm:h-28 rounded-full bg-brand-red/15 dark:bg-brand-red-neon/25 blur-xl pointer-events-none"></div>
 
-  <!-- Minecraft pixel broken heart -->
+  <!-- Skull placeholder -->
   <div class="relative z-10 py-6 px-4 flex flex-col items-center justify-center">
     <img
-      src={url('/minecraft.png')}
+      src={url('/skull.png')}
       alt={title}
-      class="w-16 h-16 sm:w-20 sm:h-20 object-contain drop-shadow-[0_4px_12px_rgba(225,29,72,0.25)] dark:drop-shadow-[0_4px_16px_rgba(255,42,95,0.45)] group-hover:scale-110 transition-transform duration-300 [image-rendering:pixelated]"
+      class="w-16 h-16 sm:w-20 sm:h-20 object-contain drop-shadow-[0_4px_12px_rgba(225,29,72,0.25)] dark:drop-shadow-[0_4px_16px_rgba(255,42,95,0.45)] group-hover:scale-110 transition-transform duration-300"
       loading="lazy"
     />
   </div>
